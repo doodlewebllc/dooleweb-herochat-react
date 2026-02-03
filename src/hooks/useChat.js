@@ -39,7 +39,7 @@ export function useChat() {
       ]);
 
     } catch (err) {
-      console.error(err);
+      console.error(err.message);
       setMessages(m => [
         ...m,
         { role: "system", text: "Network error. Please try again." }
