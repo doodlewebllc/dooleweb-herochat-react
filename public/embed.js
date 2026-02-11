@@ -1,23 +1,46 @@
 (function () {
-  const script = document.currentScript;
-  const clientId = script?.dataset?.client || "demo";
-  const token = script?.dataset?.token;
+  if (window.HeroChatLoaded) return;
+  window.HeroChatLoaded = true;
+
+  const currentScript = document.currentScript;
+  if (!currentScript) {
+    console.error("HeroChat: unable to detect script");
+    return;
+  }
+
+  const token = currentScript.getAttribute("data-token");
+  const clientId = currentScript.getAttribute("data-client") || "demo";
 
   if (!token) {
     console.error("HeroChat: token missing");
     return;
   }
 
-  window.HERO_CHAT_CLIENT = clientId;
-  window.HERO_CHAT_TOKEN = token;
+  window.__HERO_CHAT_CONFIG__ = {token, clientId};
 
-  const root = document.createElement("div");
-  root.id = "hero-chat-root";
-  document.body.prepend(root);
+  function init() {
+    if (!document.getElementById("hero-chat-root")) {
+      const root = document.createElement("div");
+      root.id = "hero-chat-root";
+      document.body.appendChild(root);
+    }
 
-  const appScript = document.createElement("script");
-  appScript.src = "https://dooleweb-herochat-react.vercel.app/hero-chat.bundle.js";
-  appScript.defer = true;
+    const baseUrl = new URL(currentScript.src).origin;
 
-  document.body.appendChild(appScript);
+    const css = document.createElement("link");
+    css.rel = "stylesheet";
+    css.href = baseUrl + "/hero-chat.css";
+    document.head.appendChild(css);
+
+    const appScript = document.createElement("script");
+    appScript.src = baseUrl + "/widget.js";
+    appScript.defer = true;
+    document.body.appendChild(appScript);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();

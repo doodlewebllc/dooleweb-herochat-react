@@ -1,14 +1,15 @@
-import React from "react";
 import { createRoot } from "react-dom/client";
-import HeroChat from "./HeroChat.jsx";
-import heroChatStyles from "./hero-chat.css?inline"; // force inline CSS
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
 
-// Inject CSS into <head>
-const style = document.createElement("style");
-style.textContent = heroChatStyles;
-document.head.appendChild(style);
+const root = document.getElementById("root");
 
-const container = document.getElementById("hero-chat-root");
-if (container) {
-  createRoot(container).render(<HeroChat />);
+if (!root) {
+  throw new Error("Admin root #root not found");
 }
+
+createRoot(root).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);

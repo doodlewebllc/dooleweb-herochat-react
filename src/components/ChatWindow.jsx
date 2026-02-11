@@ -1,88 +1,81 @@
 import { useChat } from "../hooks/useChat.js";
 import { useState } from "react";
 
-export default function ChatWindow() {
+export default function HeroChat() {
   const { messages, input, setInput, sendMessage, loading } = useChat();
   const [started, setStarted] = useState(false);
 
-  const quickPrompts = [
+  const suggestions = [
     "What solutions do you offer?",
     "What’s your pricing?",
     "Who is this product for?",
     "How long have you been in business?",
   ];
 
-  const handlePromptClick = (text) => {
+  const handleSubmit = (text) => {
+    if (!text.trim()) return;
     setStarted(true);
-    setInput(text);
     sendMessage(text);
   };
 
   return (
-    <section className="hero-wrapper">
-  <div className="hero-container">
+    <section className="hero-root">
+      <div className="hero-content">
+        <h1 className="hero-title">
+          Make better decisions, faster
+        </h1>
 
-    {/* LEFT CONTENT */}
-    <div className="hero-left">
-      <h1>
-        AI-powered growth for <span>modern teams</span>
-      </h1>
+        <p className="hero-subtitle">
+          Discover and act on private market activity with predictive company intelligence
+        </p>
 
-      <p className="subtitle">
-        Replace static hero sections with an intelligent assistant that
-        answers questions, qualifies visitors, and drives conversions.
-      </p>
+        {/* CHAT INPUT */}
+        <div className="chat-input-wrapper">
+          <span className="chat-icon">🤖</span>
 
-      <ul className="hero-points">
-        <li>✓ Train on your website content</li>
-        <li>✓ Works on any website</li>
-        <li>✓ No-code installation</li>
-      </ul>
+          <input
+            value={input}
+            placeholder="Ask me about your data"
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleSubmit(input);
+            }}
+          />
 
-      <div className="hero-cta">
-        <button className="primary-btn">Get Started</button>
-        <button className="secondary-btn">View Demo</button>
-      </div>
-    </div>
+          <button onClick={() => handleSubmit(input)}>
+            ↑
+          </button>
+        </div>
 
-    {/* RIGHT CHAT */}
-    <div className="hero-right">
-
-      <div className="chat-card">
-        {!started && messages.length === 0 && (
-          <div className="quick-prompts">
-            {quickPrompts.map((p, i) => (
-              <button key={i} onClick={() => handlePromptClick(p)}>
-                {p}
+        {/* SUGGESTIONS */}
+        {!started && (
+          <div className="suggestion-row">
+            {suggestions.map((s, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  setInput(s);
+                  handleSubmit(s);
+                }}
+              >
+                {s}
               </button>
             ))}
           </div>
         )}
 
-        <div className="messages">
-          {messages.map((m, i) => (
-            <div key={i} className={`message ${m.role}`}>
-              {m.text}
-            </div>
-          ))}
-          {loading && <div className="typing">Thinking…</div>}
-        </div>
-
-        <div className="input-row">
-          <input
-            value={input}
-            placeholder="Ask anything…"
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") sendMessage();
-            }}
-          />
-          <button onClick={() => sendMessage()}>➤</button>
-        </div>
+        {/* OPTIONAL CHAT OUTPUT (hidden by default like reference) */}
+        {started && (
+          <div className="chat-results">
+            {messages.map((m, i) => (
+              <div key={i} className={`chat-msg ${m.role}`}>
+                {m.text}
+              </div>
+            ))}
+            {loading && <div className="chat-msg bot">Thinking…</div>}
+          </div>
+        )}
       </div>
-
-    </div>
-  </div>
-</section>
+    </section>
   );
 }

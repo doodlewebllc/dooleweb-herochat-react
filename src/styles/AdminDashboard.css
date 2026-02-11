@@ -1,0 +1,241 @@
+/* ===========================
+   HERO CHAT PREMIUM ADMIN UI
+=========================== */
+
+:root {
+  --brand: #f3716d;
+  --bg: #f8f8f8;
+  --dark: #0f172a;
+  --muted: #64748b;
+  --card: #ffffff;
+}
+
+/* ================= Reset ================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+/* ================= Layout ================= */
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+/* ================= Sidebar ================= */
+
+.admin-sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #f3716d, #e0524f);
+  color: white;
+  padding: 22px;
+  transition: width 0.3s ease;
+  box-shadow: 6px 0 25px rgba(0,0,0,0.15);
+}
+
+.admin-sidebar.collapsed {
+  width: 80px;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.logo-text {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+/* ================= Menu ================= */
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.menu-item svg {
+  width: 20px;
+}
+
+.menu-item:hover {
+  background: rgba(255,255,255,0.18);
+  transform: translateX(4px);
+}
+.menu-item.active {
+  background: rgba(255,255,255,0.18);
+  transform: translateX(4px);
+}
+
+.admin-sidebar.collapsed .menu-item {
+  justify-content: center;
+}
+
+.admin-sidebar.collapsed .menu-item span {
+  display: none;
+}
+
+.admin-sidebar.collapsed .sidebar-header {
+  justify-content: center;
+}
+
+/* ================= Main ================= */
+
+.admin-main {
+  flex: 1;
+  padding: 35px;
+}
+
+/* ================= Header ================= */
+
+.admin-header {
+  background: var(--card);
+  padding: 22px 28px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  margin-bottom: 30px;
+}
+
+.admin-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.admin-header p {
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ================= Stats ================= */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.stat-card {
+  background: var(--card);
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-6px);
+}
+
+.stat-card p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.stat-card h2 {
+  font-size: 34px;
+  margin-top: 6px;
+  color: var(--brand);
+  font-weight: 700;
+}
+
+/* ================= System Card ================= */
+
+.system-card {
+  margin-top: 35px;
+  background: var(--card);
+  padding: 26px;
+  border-radius: 14px;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.08);
+}
+
+.system-card h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+  color: var(--dark);
+}
+
+.system-card p {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ================= Scrollbar ================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--brand);
+  border-radius: 8px;
+}
+
+/* ================= Misc ================= */
+
+.menu-toggle {
+  cursor: pointer;
+}
+
+.sidebar-logo {
+  height: 32px;
+  width: auto;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 12px 25px rgba(0,0,0,.08);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th, .table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+}
+
+.form-row input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.form-row button {
+  background: #f3716d;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}

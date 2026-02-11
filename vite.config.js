@@ -5,11 +5,10 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: 'dist',
-    cssCodeSplit: false, 
-    rollupOptions: {
-      output: {
-        entryFileNames: 'hero-chat.bundle.js',
-      },
-    },
+    cssCodeSplit: false,
   },
+  define: {
+    "process.env.NODE_ENV": JSON.stringify("production"),
+    "process.env": {}
+  }
 });
